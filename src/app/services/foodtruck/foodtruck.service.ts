@@ -37,6 +37,7 @@ export class FoodTruckService {
           address: truckInfo[13] || 'N/A',
           permit: truckInfo[17] || 'N/A',
           permitStatus: truckInfo[18] || 'N/A',
+          menu: truckInfo[19] || '',
           lat: truckInfo[22] || 'N/A',
           long: truckInfo[23] || 'N/A',
           shedulePdf: truckInfo[24] || 'N/A',
