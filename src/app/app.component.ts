@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoodTruckService } from './services/foodtruck/foodtruck.service';
-import { Observable, ReplaySubject, map, takeUntil } from 'rxjs';
+import { Observable, ReplaySubject, catchError, map, takeUntil } from 'rxjs';
 import { FoodtruckInterface } from './interfaces/foodtruck';
+import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +11,14 @@ import { FoodtruckInterface } from './interfaces/foodtruck';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'foodtruck-challenge';
-
   public foodTruckData$: Observable<FoodtruckInterface[]> | undefined;
   public foodTruckDataAll$: Observable<FoodtruckInterface[]> | undefined;
 
   private destroy$: ReplaySubject<boolean> = new ReplaySubject;
 
   constructor(
-    private foodTruckService: FoodTruckService
+    private foodTruckService: FoodTruckService,
+    private modalService: NgbModal,
   ) { }
 
    /**
@@ -26,8 +27,16 @@ export class AppComponent implements OnInit, OnDestroy {
    * @returns {void} Void function
    */
   ngOnInit(): void {
-    this.foodTruckData$ = this.foodTruckService.getTruckinfo();
+    this.foodTruckData$ = this.foodTruckService.getTruckinfo()
+      .pipe(
+        // Shows Error Modal on the case of an error
+        catchError(() => {
+          this.modalService.open(ErrorModalComponent);
+          throw new Error();
+      })
+    );
     this.foodTruckDataAll$ = this.foodTruckData$;
+
   }
 
   /**

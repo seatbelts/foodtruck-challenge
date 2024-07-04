@@ -6,19 +6,25 @@ import { AppComponent } from './app.component';
 import { FoodTruckService } from './services/foodtruck/foodtruck.service';
 import { provideHttpClient } from '@angular/common/http';
 import { FoodtruckCardComponent } from './components/foodtruck-card/foodtruck-card.component';
+import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
+import { NgbActiveModal, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FoodtruckCardComponent
+    FoodtruckCardComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [
     provideHttpClient(),
-    FoodTruckService
+    FoodTruckService,
+    NgbActiveModal,
+    NgbModal,
   ],
   bootstrap: [AppComponent]
 })
