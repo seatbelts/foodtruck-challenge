@@ -1,10 +1,32 @@
-<div *ngIf="foodTruckData$ | async as foodTruckData">
+
+<div class="containter flex">
   <div class="row text-center">
     <h1>San Francisco FoodTrucks</h1>
   </div>
-  <div class="container text-center">
-    <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
-      <app-foodtruck-card *ngFor="let foodTruck of foodTruckData" [foodTruckInfo]="foodTruck"></app-foodtruck-card>
+  <ng-container *ngIf="foodTruckData$ | async as foodTruckData; else loading">
+    <div class="row text-center">
+      <div class="col-xs-6">
+        <h3>Filter by Permit Status: </h3>
+      </div>
+      <div class="btn-group cool-xs-6" role="group" aria-label="Basic mixed styles example">
+        <button type="button" class="btn btn-success" (click)="filteryBy('ALL')">All</button>
+        <button type="button" class="btn btn-primary" (click)="filteryBy('REQUESTED')">Requested</button>
+        <button type="button" class="btn btn-warning" (click)="filteryBy('SUSPEND')">Suspend</button>
+        <button type="button" class="btn btn-danger" (click)="filteryBy('EXPIRED')">Expired</button>
+      </div>
     </div>
-  </div>
+    <div class="container text-center">
+      <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+        <app-foodtruck-card *ngFor="let foodTruck of foodTruckData" [foodTruckInfo]="foodTruck"></app-foodtruck-card>
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-template #loading>
+    <div class="row text-center">
+      <div class="spinner-grow spinner-grow-lg" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+  </ng-template>
 </div>
