@@ -7,4 +7,5 @@ export interface FoodtruckInterface {
     long: string;
     shedulePdf: string;
     dayHours: string;
+    menu: string;
 }
