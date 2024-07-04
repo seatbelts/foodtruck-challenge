@@ -1,0 +1,12 @@
+<div class="col">
+    <div class="card" [ngClass]="{ 'border-danger': foodTruckInfo?.permitStatus === 'EXPIRED', 'border-warning': foodTruckInfo?.permitStatus === 'SUSPEND', 'border-primary': foodTruckInfo?.permitStatus === 'REQUESTED' }">
+        <div class="card-body">
+          <h5 class="card-title">{{ foodTruckInfo?.name }}</h5>
+          <p class="card-text"> Address: {{ foodTruckInfo?.address || 'N/A'}}</p>
+          <p class="card-text">Menu:  {{ foodTruckInfo?.menu || 'N/A'}}</p>
+          <p class="card-text">Permit:  {{ foodTruckInfo?.permit || 'N/A'}}</p>
+          <p class="card-text">Permit Status: {{ foodTruckInfo?.permitStatus || 'N/A'}}</p>
+          <button (click)="openMaps(foodTruckInfo?.lat, foodTruckInfo?.long)" [disabled]="!foodTruckInfo?.lat && !foodTruckInfo?.long" class="btn btn-primary">Open In Maps</button>
+        </div>
+    </div>
+</div>

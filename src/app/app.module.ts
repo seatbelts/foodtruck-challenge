@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FoodTruckService } from './services/csv-reader/csv-reader.service';
+import { FoodTruckService } from './services/foodtruck/foodtruck.service';
 import { provideHttpClient } from '@angular/common/http';
+import { FoodtruckCardComponent } from './components/foodtruck-card/foodtruck-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FoodtruckCardComponent
   ],
   imports: [
     BrowserModule,
